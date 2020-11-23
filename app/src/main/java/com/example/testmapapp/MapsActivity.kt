@@ -27,31 +27,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        mMap!!.setOnMapClickListener { latlng ->
-            val location = LatLng(latlng.latitude, latlng.longitude)
 
-            if (locationList.size < 4) {
-                locationList.add(location)
-                mMap!!.addMarker(MarkerOptions().position(location))
-                if(locationList.size > 2) {
-                    if(polygonList.size > 0 && locationList.size == 4) polygonList[polygonList.size-1].remove()
-
-                    val polygon: Polygon = mMap!!.addPolygon(
-                            PolygonOptions()
-                                    .addAll(locationList)
-                                    .strokeColor(Color.RED)
-                                    .strokeWidth(3f)
-                                    .fillColor(R.color.polygonFill)
-                    )
-                    polygonList.add(polygon)
-                }
-                if(locationList.size == 4) locationList.clear()
-            }
-
-        }
-        locationList.clear()
-        polygonList.clear()
     }
+
 
     /**
      * Manipulates the map once available.
@@ -69,5 +47,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(35.6724487, 139.769739)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        mMap.setOnMapClickListener { latlng ->
+            val location = LatLng(latlng.latitude, latlng.longitude)
+
+            if (locationList.size < 4) {
+                locationList.add(location)
+                mMap.addMarker(MarkerOptions().position(location))
+                if(locationList.size > 2) {
+                    if(polygonList.size > 0 && locationList.size == 4) polygonList[polygonList.size-1].remove()
+
+                    val polygon: Polygon = mMap.addPolygon(
+                            PolygonOptions()
+                                    .addAll(locationList)
+                                    .strokeColor(Color.RED)
+                                    .strokeWidth(3f)
+                                    .fillColor(R.color.polygonFill)
+                    )
+                    polygonList.add(polygon)
+                }
+                if(locationList.size == 4) locationList.clear()
+            }
+        }
+        locationList.clear()
+        polygonList.clear()
     }
 }

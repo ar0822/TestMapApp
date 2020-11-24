@@ -65,6 +65,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                     .fillColor(R.color.polygonFill)
                     )
                     polygonList.add(polygon)
+
+//ポリンゴンを保存しようとしたが実装できず...
+//                    val myData = Object()
+//                    polygon.setTag(myData)
+
+
                 }
                 if(locationList.size == 4) locationList.clear()
             }
